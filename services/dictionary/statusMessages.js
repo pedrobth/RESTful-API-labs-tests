@@ -8,9 +8,15 @@ const statusMessasges = {
   updated: {
     status: 200, message: 'success',
   },
+  failOnInsertion: {
+    status: 500, message: 'internal server error',
+  },
   failOnUpdate: {
     status: 500, message: 'internal server error',
   },
+  created: {
+    status: 201, message: 'created successfully',
+  }
 };
 
 module.exports = statusMessasges;

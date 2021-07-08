@@ -35,12 +35,12 @@
     [{
 	    "oldName": "ressonancia magnetic",
 	    "testNewName": "ressonância magnética",
-	    "testNewType": "image"
+	    "testNewType": "imagem"
     },
     {
 	    "oldName": "tomografia computadorizzzada",
 	    "testNewName": "tomografia computadorizada",
-	    "testNewType": "image"
+	    "testNewType": "imagem"
     }]
 
 
@@ -55,4 +55,25 @@
 	    "newAddress": "20, Diagnostic Street, zipCode: 36105"
     }]
 
-#### 
+#### insert tests or laboratory:
+
+    The API expect to recieve a list with the insertions inside the request body. If you want to update only one test or laboratory, just provide the list containing one object.
+    E.g.
+    [{
+	    "testName": "ressonância magnética",
+	    "testType": "imagem"
+    },
+    {
+	    "testName": "tomografia computadorizada",
+	    "testType": "imagem"
+    }]
+
+
+    [{
+	    "LaboratoryName": "DASA Leblon",
+	    "Address": "2015, Diagnostic Street, zipCode: 36087"
+    },
+    {
+	    "LaboratoryName": "DASA Ipanema Center",
+	    "Address": "20, Diagnostic Street, zipCode: 36105"
+    }]
