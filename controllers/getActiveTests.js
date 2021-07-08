@@ -1,9 +1,9 @@
 const { Router } = require('express');
 const { allActiveTests } = require('../services');
 
-const TestsRoutes = Router();
+const getActiveTests = Router();
 
-TestsRoutes.get('/', async (_req, res, next) => {
+getActiveTests.get('/', async (_req, res, next) => {
   try {
     const allTests = await allActiveTests();
     if (allTests.err) return next(allTests)
@@ -11,9 +11,9 @@ TestsRoutes.get('/', async (_req, res, next) => {
     return res.status(status).json({ message });
 
   } catch (error) {
-    console.log(`error on getting active tests ${error}`);
+    console.log(`error on controller getActiveTests ${error}`);
     return next({ error, status: 'internal server error' })
   }
 })
 
-module.exports = TestsRoutes;
+module.exports = getActiveTests;

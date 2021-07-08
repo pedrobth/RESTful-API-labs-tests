@@ -18,12 +18,41 @@
     Laboratories:
     - insert a new laboratory (via POST in /laboratories)
     - consult active laboratories (via GET in /laboratories)
-    - update a laboratory information (via PUT in /laboratories:<name>)
-    - change laboratory status (via PUT in /laboratories/status:<name>)
+    - update a laboratory information (via PUT in /laboratories)
+    - change laboratory status (via PUT in /laboratories/status)
     Tests:
     - insert a new test (via POST in /tests)
     - consult active tests (via GET in /tests)
-    - update a test information (via PUT in /tests:<name>)
-    - change test status (via PUT in /tests/status:<name>)
+    - update a test information (via PUT in /tests)
+    - change test status (via PUT in /tests/status)
 
 ### Usage
+
+#### update tests or laboratory:
+
+    The API expect to recieve a list with the updates inside the request body. If you want to update only one test or laboratory, just provide the list containing one object.
+    E.g.
+    [{
+	    "oldName": "ressonancia magnetic",
+	    "testNewName": "ressonância magnética",
+	    "testNewType": "image"
+    },
+    {
+	    "oldName": "tomografia computadorizzzada",
+	    "testNewName": "tomografia computadorizada",
+	    "testNewType": "image"
+    }]
+
+
+    [{
+	    "oldName": "DASA leblon",
+	    "LaboratoryNewName": "DASA Leblon",",
+	    "newAddress": "2015, Diagnostic Street, zipCode: 36087"
+    },
+    {
+	    "oldName": "DASA Ipanema centre",
+	    "LaboratoryNewName": "DASA Ipanema Center",
+	    "newAddress": "20, Diagnostic Street, zipCode: 36105"
+    }]
+
+#### 

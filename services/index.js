@@ -1,3 +1,4 @@
 const allActiveTests = require('./allActiveTests');
+const updateTestsByName = require('./updateTestsByName')
 
-module.exports = { allActiveTests };
+module.exports = { allActiveTests, updateTestsByName };
