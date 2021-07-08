@@ -5,9 +5,7 @@ const testsDbInsertion = async (body) => {
     const response = body.map((test) => connection
       .execute('INSERT INTO tests (test_name, test_type) VALUES(?, ?)', [test.testName, test.testType]));
     const insertedList = await Promise.all(response)
-      .then((resp) => resp.map((e) => {
-        console.log(e)
-        return e[0]}));
+      .then((resp) => resp.map((e) => e[0].affectedRows));
     return insertedList;
   } catch (err) {
     console.log('error at updTestsById: ', err);
