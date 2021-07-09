@@ -1,6 +1,6 @@
 const connection = require('./connection');
 
-const gettestsById = async (tests, body) => {
+const updTestsById = async (tests, body) => {
   try {
     const response = tests.map((test, index) => connection
       .execute('UPDATE tests SET tests.test_name=?, tests.test_type=? WHERE id=?', [body[index].testNewName, body[index].testNewType, test.id]));
@@ -13,4 +13,4 @@ const gettestsById = async (tests, body) => {
   }
 };
 
-module.exports = gettestsById;
+module.exports = updTestsById;
