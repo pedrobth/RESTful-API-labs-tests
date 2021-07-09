@@ -13,13 +13,13 @@ USE `dasa_laboratory_tests`;
 
 CREATE TABLE laboratories (
   id INT NOT NULL AUTO_INCREMENT,
-  adress VARCHAR(255) NOT NULL,
+  address VARCHAR(255) NOT NULL,
   lab_name VARCHAR(64) NOT NULL,
   active BOOLEAN DEFAULT true,
   PRIMARY KEY (id)
 );
 
-INSERT INTO laboratories (adress, lab_name) VALUES
+INSERT INTO laboratories (address, lab_name) VALUES
     ('10, Blood test street, Histopatology_ville, 37011', 'blood test DASA center'),
     ('1005, Plasma samples street, Infectologist_land, 31011', 'plasma analysis DASA center'),
     ('5098, Image Scan and disgnostics street, health_city, 25098', 'central imaging DASA center');

@@ -46,12 +46,12 @@
 
     [{
 	    "testName": "DASA leblon",
-	    "LaboratoryNewName": "DASA Leblon",",
+	    "labNewName": "DASA Leblon",",
 	    "newAddress": "2015, Diagnostic Street, zipCode: 36087"
     },
     {
 	    "testName": "DASA Ipanema centre",
-	    "LaboratoryNewName": "DASA Ipanema Center",
+	    "labNewName": "DASA Ipanema Center",
 	    "newAddress": "20, Diagnostic Street, zipCode: 36105"
     }]
 
@@ -70,10 +70,10 @@
 
 
     [{
-	    "LaboratoryName": "DASA Leblon",
-	    "Address": "2015, Diagnostic Street, zipCode: 36087"
+	    "labName": "DASA Leblon",
+	    "address": "2015, Diagnostic Street, zipCode: 36087"
     },
     {
-	    "LaboratoryName": "DASA Ipanema Center",
-	    "Address": "20, Diagnostic Street, zipCode: 36105"
+	    "labName": "DASA Ipanema Center",
+	    "address": "20, Diagnostic Street, zipCode: 36105"
     }]
