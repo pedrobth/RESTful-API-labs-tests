@@ -10,7 +10,10 @@ const labsInsertion = async (body) => {
     const allUpdated = insertionRes
       .find((insertion) => insertion === 0);
     if (allUpdated) return failOnInsertion;
-    return created;
+    const generatedIds = (insertionRes.map((e) => e.id))
+    return { ...created,
+      message: created.message.concat(generatedIds)
+    };
   } catch (err) {
     console.log(`error at services labsInsertion: ${err}`);
     return err;
