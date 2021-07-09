@@ -4,6 +4,7 @@ const getAllActiveTests = require('./getAllActiveTests');
 const getLabsByName = require('./getLabsByName');
 const getTestsByName = require('./getTestsByName');
 const labsDbInsertion = require('./labsDbInsertion');
+const removeAssociation = require('./removeAssociation');
 const testsDbDeletion = require('./testsDbDeletion');
 const testsDbInsertion = require('./testsDbInsertion');
 const testsLabsDbDeletion = require('./testsLabsDbDeletion');
@@ -17,6 +18,7 @@ module.exports = {
   getLabsByName,
   getTestsByName,
   labsDbInsertion,
+  removeAssociation,
   testsDbDeletion,
   testsDbInsertion,
   testsLabsDbDeletion,

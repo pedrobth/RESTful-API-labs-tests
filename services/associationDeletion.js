@@ -1,4 +1,4 @@
-const { associateTestsToLab, getLabsByName, getTestsByName, } = require('../model');
+const { removeAssociation, getLabsByName, getTestsByName, } = require('../model');
 const validateInputs = require('./helpers/validateInputs');
 const { alreadyAssociated,
   atLeastOneTestActive,
@@ -17,7 +17,7 @@ const validateTestNames = (testsIds, body) => {
   return false;
 };
 
-const associationInsertion = async (body, labName) => {
+const associationDeletion = async (body, labName) => {
   try {
     const requiredFields = ['testName'];
     if (!validateInputs(requiredFields, body)) return missingFields;
@@ -32,16 +32,16 @@ const associationInsertion = async (body, labName) => {
     if (!labData) return labNotInDbOrInactive;
     if (labData.active === 0) return labNotInDbOrInactive;
 
-    const associationRes = await associateTestsToLab(testsList, labData[0].id);
+    const associationRes = await removeAssociation(testsList, labData[0].id);
     if (associationRes == 'alreadyAssociated') return alreadyAssociated;
     const allUpdated = associationRes
       .find((insertion) => insertion === 0);
     if (allUpdated) return failOnUpdate;
     return updated;
   } catch (err) {
-    console.log(`error at services associationInsertion: ${err}`);
+    console.log(`error at services associationDeletion: ${err}`);
     return err;
   }
 };
 
-module.exports = associationInsertion;
+module.exports = associationDeletion;

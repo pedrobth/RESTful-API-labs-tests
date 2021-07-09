@@ -1,19 +1,19 @@
 const { Router } = require('express');
 const { associationDeletion } = require('../services');
 
-const insertAssociation = Router();
+const removeAssociation = Router();
 
-insertAssociation.post('/:labName', async (req, res, next) => {
+removeAssociation.delete('/:labName', async (req, res, next) => {
   try {
     const { body, params } = req;
-    const insertionResponse = await associationDeletion(body, params.labName);
-    if (insertionResponse.err) return next(insertionResponse);
-    const { message, status } = insertionResponse;
+    const deletionResponse = await associationDeletion(body, params.labName);
+    if (deletionResponse.err) return next(deletionResponse);
+    const { message, status } = deletionResponse;
     return res.status(status).json({ message });
   } catch (error) {
-    console.log('error on insertAssociation controller: ', error);
+    console.log('error on removeAssociation controller: ', error);
     return next({ error, status: 'internal server error' });
   }
 });
 
-module.exports = insertAssociation;
+module.exports = removeAssociation;
