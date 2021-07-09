@@ -28,6 +28,13 @@
 
 ### Usage
 
+#### get tests or laboratories:
+    The api does not have any sign in for user, so a jwt validation didn't sound reasonable. Although if something similar get in production the aplication would be exposed and vulnerable.
+
+    A simple get at /lab will return active laboratories.
+
+    A simple get at /tests will return active tests.
+
 #### update tests or laboratory:
 
     The API expect to recieve a list with the updates inside the request body. If you want to update only one test or laboratory, just provide the list containing one object.
@@ -45,12 +52,12 @@
 
 
     [{
-	    "testName": "DASA leblon",
+	    "labName": "DASA leblon",
 	    "labNewName": "DASA Leblon",",
 	    "newAddress": "2015, Diagnostic Street, zipCode: 36087"
     },
     {
-	    "testName": "DASA Ipanema centre",
+	    "labName": "DASA Ipanema centre",
 	    "labNewName": "DASA Ipanema Center",
 	    "newAddress": "20, Diagnostic Street, zipCode: 36105"
     }]

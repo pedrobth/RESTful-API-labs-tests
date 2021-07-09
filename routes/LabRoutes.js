@@ -1,11 +1,11 @@
 const { Router } = require('express');
 const { getActiveLabs, insertLabs, removeLabs, updateLabs } = require('../controllers');
 
-const LabsRoutes = Router();
+const LabRoutes = Router();
 
-LabsRoutes.get('/', getActiveLabs);
-// LabsRoutes.put('/', updateLabs);
-LabsRoutes.post('/', insertLabs);
-// LabsRoutes.delete('/', removeLabs);
+LabRoutes.get('/', getActiveLabs);
+LabRoutes.put('/', updateLabs);
+LabRoutes.post('/', insertLabs);
+// LabRoutes.delete('/', removeLabs);
 
-module.exports = LabsRoutes;
+module.exports = LabRoutes;
