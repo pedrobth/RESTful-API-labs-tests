@@ -5,7 +5,7 @@ const validateTestNames = (testsIds, body) => {
   const emptyItemPosition = testsIds.findIndex((item) => !item);
   if (emptyItemPosition !== -1) {
     return { ...atLeastOneTestMissing, message:
-      atLeastOneTestMissing.message.concat(body[emptyItemPosition].oldName) };
+      atLeastOneTestMissing.message.concat(body[emptyItemPosition].testName) };
   }
   return false;
 };
