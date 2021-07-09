@@ -1,9 +1,12 @@
 const statusMessasges = {
-  dbSearchReturnedEmpty: {
-  status: 404, message: 'user not found', error: true,
-  },
   atLeastOneTestMissing: {
     status: 404, message: 'at least one test could not be found check test: ',
+  },
+  atLeastOneTestActive: {
+    status: 404, message: 'at least one test on your list is already inactive check test: ',
+  },
+  dbSearchReturnedEmpty: {
+  status: 404, message: 'user not found', error: true,
   },
   deleted: {
     status: 200, message: 'deleted with relations removed successfully',

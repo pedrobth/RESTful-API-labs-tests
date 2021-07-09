@@ -1,5 +1,5 @@
 const { getTestsByName, testsDbDeletion, testsLabsDbDeletion } = require('../model');
-const { deleted, failOnDeletion } = require('./dictionary/statusMessages');
+const { atLeastOneTestActive, atLeastOneTestMissing, deleted, failOnDeletion } = require('./dictionary/statusMessages');
 
 const validateTestNames = (testsIds, body) => {
   const emptyItemPosition = testsIds.findIndex((item) => !item);
@@ -13,15 +13,16 @@ const validateTestNames = (testsIds, body) => {
 const testsInsertion = async (body) => {
   try {
     const testsList = await getTestsByName(body);
-    console.log(testsList)
+    const activeTestIndex = testsList.findIndex((test) => test.active === 0)
+    if (activeTestIndex !== -1) return { ...atLeastOneTestActive, message:
+      atLeastOneTestActive.message.concat(body[activeTestIndex].testName) }
     const missingTestInDb = validateTestNames(testsList, body);
     if (missingTestInDb) return missingTestInDb;
 
     const deletionRes = await testsDbDeletion(testsList);
     const allTestsDeleted = deletionRes
-    .find((deletion) => deletion === 0);
+      .find((deletion) => deletion === 0);
     const deletionTestsLabsRes = await testsLabsDbDeletion(testsList);
-    console.log(deletionTestsLabsRes)
     const allTestsRelationsDeleted = deletionTestsLabsRes
       .find((relation) => relation === 0);
     if (allTestsDeleted || allTestsRelationsDeleted) return failOnDeletion;
