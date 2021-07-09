@@ -5,6 +5,9 @@ const statusMessasges = {
   atLeastOneTestMissing: {
     status: 404, message: 'at least one test could not be found check test: ',
   },
+  deleted: {
+    status: 200, message: 'deleted with relations removed successfully',
+  },
   updated: {
     status: 200, message: 'success',
   },

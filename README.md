@@ -33,24 +33,24 @@
     The API expect to recieve a list with the updates inside the request body. If you want to update only one test or laboratory, just provide the list containing one object.
     E.g.
     [{
-	    "oldName": "ressonancia magnetic",
+	    "testName": "ressonancia magnetic",
 	    "testNewName": "ressonância magnética",
 	    "testNewType": "imagem"
     },
     {
-	    "oldName": "tomografia computadorizzzada",
+	    "testName": "tomografia computadorizzzada",
 	    "testNewName": "tomografia computadorizada",
 	    "testNewType": "imagem"
     }]
 
 
     [{
-	    "oldName": "DASA leblon",
+	    "testName": "DASA leblon",
 	    "LaboratoryNewName": "DASA Leblon",",
 	    "newAddress": "2015, Diagnostic Street, zipCode: 36087"
     },
     {
-	    "oldName": "DASA Ipanema centre",
+	    "testName": "DASA Ipanema centre",
 	    "LaboratoryNewName": "DASA Ipanema Center",
 	    "newAddress": "20, Diagnostic Street, zipCode: 36105"
     }]

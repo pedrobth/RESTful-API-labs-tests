@@ -8,7 +8,7 @@ const testsDbInsertion = async (body) => {
       .then((resp) => resp.map((e) => e[0].affectedRows));
     return insertedList;
   } catch (err) {
-    console.log('error at updTestsById: ', err);
+    console.log('error at testsDbInsertion: ', err);
     return err;
   }
 };

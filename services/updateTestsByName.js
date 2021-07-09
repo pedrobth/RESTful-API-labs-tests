@@ -8,8 +8,7 @@ const validateTestNames = (testsIds, body) => {
       atLeastOneTestMissing.message.concat(body[emptyItemPosition].oldName) };
   }
   return false;
-}
-
+};
 
 const updateTestsByName = async (body) => {
   try {
