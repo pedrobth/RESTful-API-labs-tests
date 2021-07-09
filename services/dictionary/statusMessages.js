@@ -1,4 +1,7 @@
 const statusMessasges = {
+  alreadyAssociated: {
+    status: 404, message: 'at leat one of the associations already exists, review your request and try it again',
+  },
   atLeastOneLabActive: {
     status: 404, message: 'at least one lab on your list is already inactive check lab: ',
   },
@@ -27,7 +30,10 @@ const statusMessasges = {
     status: 500, message: 'internal server error',
   },
   missingFields: {
-    status: 400, message: 'mandatory fields missing, check inputs and try it again'
+    status: 400, message: 'mandatory fields missing, check inputs and try it again',
+  },
+  labNotInDbOrInactive: {
+    status: 400, message: 'laboratory name not found or laboratory is inactive, and should not be associted to any test.',
   },
   updated: {
     status: 200, message: 'success',

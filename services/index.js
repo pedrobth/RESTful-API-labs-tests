@@ -1,5 +1,6 @@
 const allActiveLabs = require('./allActiveLabs');
 const allActiveTests = require('./allActiveTests');
+const associationInsertion = require('./associationInsertion');
 const labsInsertion = require('./labsInsertion');
 const testsDeletion = require('./testsDeletion');
 const testsInsertion = require('./testsInsertion');
@@ -8,6 +9,7 @@ const updateTestsByName = require('./updateTestsByName');
 
 module.exports = {
   allActiveLabs,
+  associationInsertion,
   allActiveTests,
   labsInsertion,
   testsDeletion,

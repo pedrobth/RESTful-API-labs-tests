@@ -1,3 +1,4 @@
+const associateTestsToLab = require('./associateTestsToLab');
 const getAllActiveLabs = require('./getAllActiveLabs');
 const getAllActiveTests = require('./getAllActiveTests');
 const getLabsByName = require('./getLabsByName');
@@ -10,6 +11,7 @@ const updLabsById = require('./updLabsById');
 const updTestsById = require('./updTestsById');
 
 module.exports = {
+  associateTestsToLab,
   getAllActiveLabs,
   getAllActiveTests,
   getLabsByName,

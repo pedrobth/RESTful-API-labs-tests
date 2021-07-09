@@ -10,7 +10,7 @@ USE `dasa_laboratory_tests`;
 --
 -- Table structure for table `laboratories`
 --
-
+-- UNIQUE KEY constraint should be considered in address or lab_name
 CREATE TABLE laboratories (
   id INT NOT NULL AUTO_INCREMENT,
   address VARCHAR(255) NOT NULL,

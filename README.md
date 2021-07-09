@@ -84,3 +84,13 @@
 	    "labName": "DASA Ipanema Center",
 	    "address": "20, Diagnostic Street, zipCode: 36105"
     }]
+
+#### association between tests and laboratory:
+    To associate laboratories and tests you might post in /associate/<laboratory name> and send in requisition body the tests to associate with the laboratory. E. g.
+
+    [{
+	    "testName": "r. m."
+    },
+    {
+	    "testName": "t. c."
+    }]
