@@ -1,8 +1,11 @@
 const { labsDbInsertion } = require('../model');
-const { created, failOnInsertion } = require('./dictionary/statusMessages');
+const validateInputs = require('./helpers/validateInputs');
+const { created, failOnInsertion, missingFields } = require('./dictionary/statusMessages');
 
 const labsInsertion = async (body) => {
   try {
+    const requiredFields = ['labName', 'address'];
+    if (!validateInputs(requiredFields, body)) return missingFields;
     const insertionRes = await labsDbInsertion(body);
     const allUpdated = insertionRes
       .find((insertion) => insertion === 0);

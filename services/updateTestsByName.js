@@ -1,5 +1,6 @@
 const { getTestsByName, updTestsById } = require('../model');
-const { atLeastOneTestMissing, failOnUpdate, updated } = require('./dictionary/statusMessages');
+const validateInputs = require('./helpers/validateInputs');
+const { atLeastOneTestMissing, failOnUpdate, missingFields, updated } = require('./dictionary/statusMessages');
 
 const validateTestNames = (testsIds, body) => {
   const emptyItemPosition = testsIds.findIndex((item) => !item);
@@ -12,6 +13,8 @@ const validateTestNames = (testsIds, body) => {
 
 const updateTestsByName = async (body) => {
   try {
+    const requiredFields = ['testName', 'testNewName', 'testNewType'];
+    if (!validateInputs(requiredFields, body)) return missingFields;
     const testsList = await getTestsByName(body);
     const missingTestInDb = validateTestNames(testsList, body);
     if (missingTestInDb) return missingTestInDb;
