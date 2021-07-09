@@ -3,7 +3,7 @@ const { getActiveLabs, insertLabs, removeLabs, updateLabs } = require('../contro
 
 const LabsRoutes = Router();
 
-// LabsRoutes.get('/', getActiveLabs);
+LabsRoutes.get('/', getActiveLabs);
 // LabsRoutes.put('/', updateLabs);
 LabsRoutes.post('/', insertLabs);
 // LabsRoutes.delete('/', removeLabs);
