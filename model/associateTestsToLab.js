@@ -12,7 +12,7 @@ const associateTestsToLab = async (testsList, labName) => {
       .then((resp) => resp.map((e) => e[0].affectedRows));
     return insertedList;
   } catch (err) {
-    console.log('error at associateTestsToLab: ', err);
+    // console.log('error at associateTestsToLab: ', err);
     return err;
   }
 };
