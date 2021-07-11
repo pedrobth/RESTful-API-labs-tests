@@ -8,7 +8,11 @@ const associationDeletion = async (body, labName) => {
     if (!validateInputs(requiredFields, body)) return statusMessages.missingFields;
     const associationRes = await removeAssociation(body, labName);
     if (associationRes.code) return statusMessages[`${associationRes.code}`];
-    return updated;
+    const allUpdated = associationRes
+      .find((insertion) => insertion === 0);
+    console.log(allUpdated)
+    if (allUpdated === 0) return statusMessages.zeroAffectedRows;
+    return statusMessages.updated;
   } catch (err) {
     console.log(`error at services associationDeletion: ${err}`);
     return err;

@@ -6,7 +6,7 @@ const associateTestsToLab = async (testsList, labName) => {
       .execute('DELETE FROM tests_laboratories '
         +'WHERE test_id=('
           +'SELECT id FROM tests WHERE test_name=? AND active=true'
-        +'), AND laboratory_id=('
+        +') AND laboratory_id=('
           +'SELECT id FROM laboratories WHERE lab_name=? AND active=true'
         +')', [test.testName, labName]));
     const insertedList = await Promise.all(response)

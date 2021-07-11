@@ -47,6 +47,9 @@ const statusMessasges = {
   updated: {
     status: 200, message: 'success',
   },
+  zeroAffectedRows: {
+    status: 400, message: 'invalid request'
+  }
 };
 
 module.exports = statusMessasges;
