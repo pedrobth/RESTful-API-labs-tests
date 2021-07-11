@@ -10,7 +10,6 @@ const associationDeletion = async (body, labName) => {
     if (associationRes.code) return statusMessages[`${associationRes.code}`];
     const allUpdated = associationRes
       .find((insertion) => insertion === 0);
-    console.log(allUpdated)
     if (allUpdated === 0) return statusMessages.zeroAffectedRows;
     return statusMessages.updated;
   } catch (err) {
