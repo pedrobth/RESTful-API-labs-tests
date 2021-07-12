@@ -17,17 +17,20 @@ const statusMessasges = {
   atLeastOneTestMissing: {
     status: 404, message: 'at least one test could not be found check test: ',
   },
-  ER_BAD_NULL_ERROR: {
-    status: 400, message: 'associations between inactive or out of database laboratory or between valid laboratory and inactive or out of databse test is forbiden. check your inputs',
-  },
   created: {
     status: 201, message: 'created successfully with the following respectively ids: ',
   },
   dbSearchReturnedEmpty: {
-  status: 404, message: 'user not found', error: true,
+    status: 404, message: 'user not found', error: true,
   },
   deleted: {
     status: 200, message: 'deleted with relations removed successfully',
+  },
+  ER_BAD_FIELD_ERROR: {
+    status: 400, message: 'associations between inactive or out of database laboratory or between valid laboratory and inactive or out of databse test is forbiden. check your inputs',
+  },
+  ER_BAD_NULL_ERROR: {
+    status: 400, message: 'associations between inactive or out of database laboratory or between valid laboratory and inactive or out of databse test is forbiden. check your inputs',
   },
   ER_DUP_ENTRY: {
     status: 400, message: 'at least one association requested already exists',
