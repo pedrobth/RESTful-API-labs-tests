@@ -35,6 +35,9 @@ const statusMessasges = {
   ER_DUP_ENTRY: {
     status: 400, message: 'at least one association requested already exists',
   },
+  ER_BAD_INPUT: {
+    status: 400, message: 'mandatory fields in wrong format, check inputs and try it again',
+  },
   failOnInsertion: {
     status: 500, message: 'internal server error',
   },
@@ -51,7 +54,7 @@ const statusMessasges = {
     status: 200, message: 'success',
   },
   zeroAffectedRows: {
-    status: 400, message: 'invalid request'
+    status: 400, message: 'could not find your request criteria'
   }
 };
 

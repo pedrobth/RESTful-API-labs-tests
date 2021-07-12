@@ -85,7 +85,7 @@
 	    "address": "20, Diagnostic Street, zipCode: 36105"
     }]
 
-#### association between tests and laboratory:
+#### add association between tests and laboratory:
     To associate laboratories and tests you might post in /associate/<laboratory name> and send in requisition body the tests to associate with the laboratory. E. g.
 
     [{
@@ -94,3 +94,18 @@
     {
 	    "testName": "t. c."
     }]
+
+#### remove association between tests and laboratory:
+    To remove an association you might delete in /associate/<laboratory name> and send in requisition body the tests to desassociate with the laboratory. E. g.
+
+    [{
+	    "testName": "r. m."
+    },
+    {
+	    "testName": "t. c."
+    }]
+
+### tests
+    Tests are using jest framework. Before run tests ensure database creation. The script in sql is inside dasa_lab_tests.sql file.
+
+    IMPORTANT: tests should run individually (file by file) to avoid deadlocks. Alternativellythe flag --runInBand (https://jestjs.io/docs/cli#--runinband) can be used, although --runInBand can be unstable in some environments.

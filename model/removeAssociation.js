@@ -14,8 +14,6 @@ const associateTestsToLab = async (testsList, labName) => {
     return insertedList;
   } catch (err) {
     console.log('error at associateTestsToLab: ', err);
-    // IMHO this does not follow the MSC architecture, but it was made as a quck fix to deliver the application on time.
-    // if (err.message.includes('Duplicate entry')) return 'alreadyAssociated';
     return err;
   }
 };
