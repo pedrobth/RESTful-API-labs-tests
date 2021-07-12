@@ -7,7 +7,6 @@ const updateTestsByName = async (body) => {
     const requiredFields = ['testName', 'testNewName', 'testNewType'];
     if (!validateInputs(requiredFields, body)) return statusMessages.missingFields;
     const updateRes = await updTestsById(body);
-    console.log(updateRes)
     if (updateRes.code || updateRes.errno === 3819) {
       return (statusMessages[`${updateRes.code}`] || statusMessages.ER_BAD_INPUT)
     };
