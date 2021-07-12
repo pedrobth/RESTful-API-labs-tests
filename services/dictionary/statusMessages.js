@@ -18,7 +18,7 @@ const statusMessasges = {
     status: 404, message: 'at least one test could not be found check test: ',
   },
   created: {
-    status: 201, message: 'created successfully with the following respectively ids: ',
+    status: 201, message: 'created successfully with the following ids: ',
   },
   dbSearchReturnedEmpty: {
     status: 404, message: 'user not found', error: true,
