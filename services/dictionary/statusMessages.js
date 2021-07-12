@@ -32,6 +32,9 @@ const statusMessasges = {
   ER_BAD_NULL_ERROR: {
     status: 400, message: 'associations between inactive or out of database laboratory or between valid laboratory and inactive or out of databse test is forbiden. check your inputs',
   },
+  ER_DATA_TOO_LONG: {
+    status: 400, message: 'some of field data exceeds characters limit',
+  },
   ER_DUP_ENTRY: {
     status: 400, message: 'at least one association requested already exists',
   },
@@ -49,6 +52,9 @@ const statusMessasges = {
   },
   labNotInDbOrInactive: {
     status: 400, message: 'laboratory name not found or laboratory is inactive, and should not be associted to any test.',
+  },
+  someOfRequestsFail: {
+    status: 208, message: 'at least one request fail'
   },
   updated: {
     status: 200, message: 'success',
