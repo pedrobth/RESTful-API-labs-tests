@@ -11,7 +11,7 @@ const labsDbInsertion = async (body) => {
       })));
     return insertedList;
   } catch (err) {
-    console.log('error at labsDbInsertion: ', err);
+    console.log('error at MODEL labsDbInsertion: ', err);
     return err;
   }
 };

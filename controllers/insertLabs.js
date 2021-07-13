@@ -8,8 +8,8 @@ insertLabs.post('/', async (req, res, next) => {
     const { body } = req;
     const insertionResponse = await labsInsertion(body);
     if (insertionResponse.err) return next(insertionResponse);
-    const { message, status } = insertionResponse;
-    return res.status(status).json({ message });
+    const { ids, message, status } = insertionResponse;
+    return res.status(status).json({ ids, message });
   } catch (error) {
     console.log('error on insertLabs controller: ', error);
     return next({ error, status: 'internal server error' });
