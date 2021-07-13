@@ -1,4 +1,5 @@
 const frisby = require('frisby');
+const { connect } = require('../controllers/getActiveLabs');
 // const mysql = require('mysql2/promise');
 const connection = require('./testHelper/connection');
 const { LABS, RELATIONS, TESTS } = require('./testHelper/data');
@@ -128,7 +129,7 @@ describe('UPDATE labs', () => {
   });
   it('put on /labs route handle bad inputs -> a huge old lab name', async () => {
     const updateResponse = await frisby.put(URL_LABS, [{
-      labName: "contagem de hematocritos",
+      labName: INSERTED_LABS[0],
       labNewName: "contagem hematócritos",
       newAddress: "imagem",
     },{
@@ -139,29 +140,38 @@ describe('UPDATE labs', () => {
     const { body } = updateResponse;
     const parsedResponse = JSON.parse(body);
     expect(parsedResponse.message).toBe('at least one request fail');
+    expect(parsedResponse.failRequests[0].labName).toBe(LOREM);
   });
 });
 
 describe('GET labs', () => {
   beforeEach(async () => {
     connection.execute('DELETE FROM tests_laboratories');
-    await connection.execute('DELETE FROM tests');
+    await connection.execute('DELETE FROM laboratories');
     await connection.execute('ALTER TABLE tests_laboratories AUTO_INCREMENT = 1');
-    await connection.execute('ALTER TABLE tests AUTO_INCREMENT = 1');
-    await connection.execute('INSERT INTO tests (test_type, test_name) VALUES (?, ?), (?, ?), (?, ?), (?, ?)', [
-      TESTS[0].testType, TESTS[0].testName,
-      TESTS[1].testType, TESTS[1].testName,
-      TESTS[2].testType, TESTS[2].testName,
-      TESTS[3].testType, TESTS[3].testName,
+    await connection.execute('ALTER TABLE laboratories AUTO_INCREMENT = 1');
+    await connection.execute('INSERT INTO laboratories (address, lab_name) VALUES (?, ?), (?, ?), (?, ?), (?, ?)', [
+      LABS[0].address, LABS[0].labName,
+      LABS[1].address, LABS[1].labName,
+      LABS[2].address, LABS[2].labName,
+      LABS[3].address, LABS[3].labName,
     ]);
   });
   it('route /labs exists, accept get and return the expected body', async () => {
-    const getTestsResponse = await frisby.get(URL_LABS)
-    expect(getTestsResponse.status).not.toBe(404);
-    const { body } = getTestsResponse;
-    const getTestsParsed = JSON.parse(body);
-    expect(getTestsParsed.length).not.toBe(0);
-    expect(getTestsParsed.message).toMatchObject(INSERTED_LABS);
+    const getLabsResponse = await frisby.get(URL_LABS);
+    expect(getLabsResponse.status).not.toBe(404);
+    const { body } = getLabsResponse;
+    const getLabsParsed = JSON.parse(body);
+    expect(getLabsParsed.length).not.toBe(0);
+    expect(getLabsParsed.message).toMatchObject(INSERTED_LABS);
+  });
+  it('route /labs return only active tests', async () =>{
+    await connection.execute('UPDATE laboratories SET laboratories.active=false WHERE lab_name=?', [INSERTED_LABS[0].lab_name]);
+    const getLabsResponse = await frisby.get(URL_LABS);
+    expect(getLabsResponse.status).toBe(200);
+    const { body } = getLabsResponse;
+    const getLabsParsed = JSON.parse(body);
+    expect(getLabsParsed.message).not.toMatchObject(INSERTED_LABS[0]);
   });
 });
 
@@ -628,6 +638,7 @@ describe('UPDATE tests', () => {
     const { body } = updateResponse;
     const parsedResponse = JSON.parse(body);
     expect(parsedResponse.message).toBe('at least one request fail');
+    expect(parsedResponse.failRequests[0].testName).toBe('invalid test name');
   });
   it('put on /tests route handle bad inputs -> a huge new test name', async () => {
     const updateResponse = await frisby.put(URL_TESTS, [{
@@ -656,6 +667,7 @@ describe('UPDATE tests', () => {
     const { body } = updateResponse;
     const parsedResponse = JSON.parse(body);
     expect(parsedResponse.message).toBe('at least one request fail');
+    expect(parsedResponse.failRequests[0].testName).toBe(LOREM)
   });
 });
 
@@ -679,6 +691,14 @@ describe('GET tests', () => {
     const getTestsParsed = JSON.parse(body);
     expect(getTestsParsed.length).not.toBe(0);
     expect(getTestsParsed.message).toMatchObject(INSERTED_TESTS);
+  });
+  it('route /tests return only active tests', async () => {
+  await connection.execute('UPDATE tests SET tests.active=false WHERE test_name=?', [INSERTED_TESTS[0].test_name]);
+  const getTestsResponse = await frisby.get(URL_LABS);
+  expect(getTestsResponse.status).toBe(200);
+  const { body } = getTestsResponse;
+  const getTestsParsed = JSON.parse(body);
+  expect(getTestsParsed.message).not.toMatchObject(INSERTED_TESTS[0]);
   });
 });
 
