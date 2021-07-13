@@ -6,6 +6,6 @@ const LabRoutes = Router();
 LabRoutes.get('/', getActiveLabs);
 LabRoutes.put('/', updateLabs);
 LabRoutes.post('/', insertLabs);
-// LabRoutes.delete('/', removeLabs);
+LabRoutes.delete('/', removeLabs);
 
 module.exports = LabRoutes;
