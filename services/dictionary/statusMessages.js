@@ -54,7 +54,7 @@ const statusMessasges = {
     status: 400, message: 'laboratory name not found or laboratory is inactive, and should not be associted to any test.',
   },
   someOfRequestsFail: {
-    status: 208, message: 'at least one request fail'
+    status: 400, message: 'at least one request fail'
   },
   updated: {
     status: 200, message: 'success',

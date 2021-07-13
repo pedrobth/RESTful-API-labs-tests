@@ -1,6 +1,6 @@
 const connection = require('./connection');
 
-const updTestsById = async (testsList) => {
+const updTestsByName = async (testsList) => {
   try {
     const response = testsList.map((test) => connection
       .execute('UPDATE tests SET tests.test_name=?, tests.test_type=? '
@@ -10,9 +10,9 @@ const updTestsById = async (testsList) => {
       .then((resp) => resp.map((e) => e[0].changedRows));
     return updateList;
   } catch (err) {
-    console.log('error at updTestsById: ', err);
+    console.log('error at updTestsByName: ', err);
     return err;
   }
 };
 
-module.exports = updTestsById;
+module.exports = updTestsByName;
