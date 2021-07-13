@@ -1,21 +1,6 @@
 const statusMessasges = {
-  alreadyAssociated: {
-    status: 404, message: 'at leat one of the associations already exists, review your request and try it again',
-  },
   associationCreated: {
     status: 201, message: 'associations successfully created',
-  },
-  atLeastOneLabActive: {
-    status: 404, message: 'at least one lab on your list is already inactive check lab: ',
-  },
-  atLeastOneTestActive: {
-    status: 404, message: 'at least one test on your list is already inactive check test: ',
-  },
-  atLeastOneLabMissing: {
-    status: 404, message: 'at least one laboratory could not be found check laboratory: ',
-  },
-  atLeastOneTestMissing: {
-    status: 404, message: 'at least one test could not be found check test: ',
   },
   created: {
     status: 201, message: 'created successfully with the following ids: ',
@@ -44,14 +29,8 @@ const statusMessasges = {
   failOnInsertion: {
     status: 500, message: 'internal server error',
   },
-  failOnUpdate: {
-    status: 500, message: 'internal server error',
-  },
   missingFields: {
     status: 400, message: 'mandatory fields missing or in wrong format, check inputs and try it again',
-  },
-  labNotInDbOrInactive: {
-    status: 400, message: 'laboratory name not found or laboratory is inactive, and should not be associted to any test.',
   },
   someOfRequestsFail: {
     status: 400, message: 'at least one request fail'

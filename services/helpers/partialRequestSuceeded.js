@@ -1,15 +1,12 @@
 const statusMessages = require('../dictionary/statusMessages');
 
-const partialRequestSuceeded = (allUpdates, body, allRelationsDeletions = null) => {
+const partialRequestSuceeded = (allUpdates, body) => {
   const deactivated = [];
-  // const relationsRemoved = [];
   allUpdates.filter((item, index) => {
     if (item === 0) deactivated.push(index);
   });
-  // allRelationsDeletions.filter((item, index) => {
-  //   if (item === 0) relationsRemoved.push(index);
-  // });
-  const failRequests = deactivated.map(item => body[item]);
+  const failRequests = deactivated.map((_item, index) => body[index + 1] || body[index]);
+  console.log(failRequests)
   return { ...statusMessages.someOfRequestsFail, failRequests };
 };
 
