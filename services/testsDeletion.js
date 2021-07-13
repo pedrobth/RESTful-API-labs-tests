@@ -2,14 +2,6 @@ const { testsDbDeletion, testsLabsDbDeletion } = require('../model');
 const statusMessages = require('./dictionary/statusMessages');
 const { partialRequestSuceeded, validateInputs } = require('./helpers');
 
-const validateTestNames = (testsIds, body) => {
-  const emptyItemPosition = testsIds.findIndex((item) => !item);
-  if (emptyItemPosition !== -1) {
-    return { ...atLeastOneTestMissing, message:
-      atLeastOneTestMissing.message.concat(body[emptyItemPosition].oldName) };
-  }
-  return false;
-};
 
 const testsDeletion = async (body) => {
   try {
@@ -20,13 +12,10 @@ const testsDeletion = async (body) => {
     const allTestsDeleted = deletionRes
       .find((deletion) => deletion === 0);
     const deletionTestsLabsRes = await testsLabsDbDeletion(body);
-    const allTestsRelationsDeleted = deletionTestsLabsRes
-      .find((relation) => relation === 0);
-    if (allTestsDeleted === 0
-      || allTestsRelationsDeleted === 0) return partialRequestSuceeded(deletionRes, deletionTestsLabsRes, body);
+    if (allTestsDeleted === 0) return partialRequestSuceeded(deletionRes, body, deletionTestsLabsRes);
     return statusMessages.deleted;
   } catch (err) {
-    console.log(`error at services updateTestsByName: ${err}`);
+    console.log(`error at services testsDeletion: ${err}`);
     return err;
   }
 };
