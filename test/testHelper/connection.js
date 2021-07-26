@@ -5,7 +5,7 @@ const connection = mysql.createPool({
   host: process.env.HOSTNAME,
   user: process.env.MYSQL_USER,
   password: process.env.MYSQL_PASSWORD,
-  database: 'dasa_laboratory_tests',
+  database: 'dev_lab_tests',
 });
 
 module.exports = connection;
