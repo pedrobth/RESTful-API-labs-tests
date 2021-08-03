@@ -5,7 +5,7 @@ const statusMessages = require('./dictionary/statusMessages');
 
 const updateLabsById = async (body) => {
   try {
-    // usually update takes one item via params. I took a risk here doing something different than usual, to allow more than one update in a sigle request. This approach is easier to maintain since It have a sigle route to update one and many laboratories (update many was an extra feature).
+    // I did something unusual on this application. Update, delete and insert many was an extra feature. Those requisitions take the id via body instead of prarams. Since It has a single route to update one and many laboratories, this approach is easier to maintain..
     const requiredFields = ['labId', 'labName', 'address'];
     if (!validateInputs(requiredFields, body)) return statusMessages.missingFields;
   
