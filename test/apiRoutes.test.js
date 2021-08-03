@@ -52,9 +52,9 @@ describe('UPDATE labs', () => {
   });
   it('put on /labs route handle a single valid update on labs', async () => {
     const updateResponse = await frisby.put(URL_LABS, [{
-      labName: "DASA Ipanema Center",
-      labNewName: "Ipanema Center",
-      newAddress: "imagem",
+      labId: 1,
+      labName: "Ipanema Center",
+      address: "imagem",
     }]).expect('status', 200);
     const { body } = updateResponse;
     const parsedResponse = JSON.parse(body);
@@ -62,13 +62,13 @@ describe('UPDATE labs', () => {
   });
   it('put on /labs route handle a valid list to update on labs', async () => {
     const updateResponse = await frisby.put(URL_LABS, [{
-      labName: LABS[0].labName,
-      labNewName: "contagem hematócritos",
-      newAddress: "imagem",
+      labId: 1,
+      labName: "DASA Niteroi centro",
+      address: "imagem",
     },{
-      labName: LABS[1].labName,
-      labNewName: "ressonância magnética",
-      newAddress: "imagem",
+      labId: 2,
+      labName: "ressonância magnética",
+      address: "imagem",
     }]).expect('status', 200);
     const { body } = updateResponse;
     const parsedResponse = JSON.parse(body);
@@ -76,13 +76,13 @@ describe('UPDATE labs', () => {
   });
   it('put on /labs route handle bad inputs -> values not passed in a list', async () => {
     const updateResponse = await frisby.put(URL_LABS, {
-      labName: "contagem de hematocritos",
-      labNewName: "contagem hematócritos",
-      newAddress: "imagem",
+      labId: 1,
+      labName: "DASA Niteroi centro",
+      address: "Av. Dos testes, 1248",
     },{
-      labName: "ressonancia magnética",
-      labNewName: "ressonância magnética",
-      newAddress: "imagem",
+      labId: 2,
+      labName: "DASA Iapnema",
+      address: "R. Amostras, 1248",
     }).expect('status', 400);
     const { body } = updateResponse;
     const parsedResponse = JSON.parse(body);
@@ -90,9 +90,9 @@ describe('UPDATE labs', () => {
   });
   it('put on /labs route handle bad inputs -> empty new address', async () => {
     const updateResponse = await frisby.put(URL_LABS, [{
-      labName: "contagem de hematocritos",
-      labNewName: "contagem hematócritos",
-      newAddress: '',
+      labId: 1,
+      labName: "DASA Iapnema",
+      address: "",
     }]).expect('status', 400);
     const { body } = updateResponse;
     const parsedResponse = JSON.parse(body);
@@ -100,42 +100,42 @@ describe('UPDATE labs', () => {
   });
   it('put on /labs route handle bad inputs -> invalid old lab name', async () => {
     const updateResponse = await frisby.put(URL_LABS, [{
-      labName: LABS[3].labName,
-      labNewName: "DASA some center",
-      newAddress: LABS[3].address,
+      labId: 1,
+      labName: "DASA some center",
+      address: LABS[3].address,
     },{
-      labName: "invalid lab name",
-      labNewName: "DASA some center",
-      newAddress: LABS[3].address,
+      labId: 200,
+      labName: "invalid input",
+      address: LABS[3].address,
     }]).expect('status', 400);
     const { body } = updateResponse;
     const parsedResponse = JSON.parse(body);
     expect(parsedResponse.message).toBe('at least one request fail');
-    expect(parsedResponse.failRequests[0].labName).toBe('invalid lab name');
+    expect(parsedResponse.failRequests[0].labName).toBe('invalid input');
   });
   it('put on /labs route handle bad inputs -> a huge new lab name', async () => {
     const updateResponse = await frisby.put(URL_LABS, [{
-      labName: LABS[3].labName,
-      labNewName: "contagem hematócritos",
-      newAddress: "imagem",
+      labId: 1,
+      labName: "contagem hematócritos",
+      address: "imagem",
     },{
-      labName: LABS[2].labName,
-      labNewName: LOREM,
-      newAddress: "imagem",
+      labId: 2,
+      labName: LOREM,
+      address: "imagem",
     }]).expect('status', 400);
     const { body } = updateResponse;
     const parsedResponse = JSON.parse(body);
     expect(parsedResponse.message).toBe('some of field data exceeds characters limit');
   });
-  it('put on /labs route handle bad inputs -> a huge old lab name', async () => {
+  it('put on /labs route handle bad inputs -> id not in database', async () => {
     const updateResponse = await frisby.put(URL_LABS, [{
-      labName: INSERTED_LABS[0],
-      labNewName: "contagem hematócritos",
-      newAddress: "imagem",
+      labId: 1,
+      labName: "contagem hematócritos",
+      address: "imagem",
     },{
+      labId: 200,
       labName: LOREM,
-      labNewName: "ressonância magnética",
-      newAddress: "imagem",
+      address: "imagem",
     }]).expect('status', 400);
     const { body } = updateResponse;
     const parsedResponse = JSON.parse(body);

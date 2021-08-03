@@ -10,7 +10,7 @@ const removeAssociation = require('./removeAssociation');
 const testsDbDeletion = require('./testsDbDeletion');
 const testsDbInsertion = require('./testsDbInsertion');
 const testsLabsDbDeletion = require('./testsLabsDbDeletion');
-const updLabsByName = require('./updLabsByName');
+const updLabsById = require('./updLabsById');
 const updTestsByName = require('./updTestsByName');
 
 module.exports = {
@@ -26,6 +26,6 @@ module.exports = {
   testsDbDeletion,
   testsDbInsertion,
   testsLabsDbDeletion,
-  updLabsByName,
+  updLabsById,
   updTestsByName,
  };

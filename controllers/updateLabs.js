@@ -1,12 +1,12 @@
 const { Router } = require('express');
-const { updateLabsByName } = require('../services');
+const { updateLabsById } = require('../services');
 
 const updateLabs = Router();
 
 updateLabs.put('/', async (req, res, next) => {
   try {
     const { body } = req;
-    const updateResponse = await updateLabsByName(body);
+    const updateResponse = await updateLabsById(body);
     if (updateResponse.err) return next(updateResponse);
     const { message, status } = updateResponse;
     return res.status(status)

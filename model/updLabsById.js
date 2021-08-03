@@ -4,8 +4,8 @@ const updLabsById = async (labsList) => {
   try {
     const response = labsList.map((lab) => connection
       .execute('UPDATE laboratories SET laboratories.lab_name=?, laboratories.address=? '
-        +'WHERE lab_name=?',
-      [lab.labNewName, lab.newAddress, lab.labName]));
+        +'WHERE id=?',
+      [lab.labName, lab.address, lab.labId]));
     const updateList = await Promise.all(response)
       .then((resp) => resp.map((e) => e[0].changedRows));
     return updateList;
