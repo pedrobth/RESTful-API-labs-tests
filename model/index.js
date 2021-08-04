@@ -3,6 +3,7 @@ const associateTestsToLab = require('./associateTestsToLab');
 const labsDbDeletion = require('./labsDbDeletion');
 const getAllActiveLabs = require('./getAllActiveLabs');
 const getAllActiveTests = require('./getAllActiveTests');
+const getLabsById = require('./getLabsById');
 const getLabsByName = require('./getLabsByName');
 const getTestsByName = require('./getTestsByName');
 const labsDbInsertion = require('./labsDbInsertion');
@@ -20,6 +21,7 @@ module.exports = {
   getAllActiveLabs,
   getAllActiveTests,
   getLabsByName,
+  getLabsById,
   getTestsByName,
   labsDbInsertion,
   removeAssociation,

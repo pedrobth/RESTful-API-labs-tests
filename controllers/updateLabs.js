@@ -3,6 +3,7 @@ const { updateLabsById } = require('../services');
 
 const updateLabs = Router();
 
+// I did something unusual on this application. Update, delete and insert many was an extra feature. Those requisitions take the id via body instead of prarams. Since It has a single route to update one and many laboratories, this approach is easier to maintain..
 updateLabs.put('/', async (req, res, next) => {
   try {
     const { body } = req;
