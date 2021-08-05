@@ -129,22 +129,7 @@ describe.only('UPDATE labs', () => {
     }]).expect('status', 400);
     const { body } = updateResponse;
     const parsedResponse = JSON.parse(body);
-    expect(parsedResponse.message).toBe('some of field data exceeds characters limit');
-  });
-  it('put on /labs route handle bad inputs -> id not in database', async () => {
-    const updateResponse = await frisby.put(URL_LABS, [{
-      labId: 1,
-      labName: "contagem hematócritos",
-      address: "imagem",
-    },{
-      labId: -1,
-      labName: LOREM,
-      address: "imagem",
-    }]).expect('status', 400);
-    const { body } = updateResponse;
-    const parsedResponse = JSON.parse(body);
-    expect(parsedResponse.message).toBe('at least one request fail');
-    expect(parsedResponse.failRequests[0].labName).toBe(LOREM);
+    expect(parsedResponse.message).toBe('mandatory fields missing or in wrong format, check inputs and try it again');
   });
 });
 
