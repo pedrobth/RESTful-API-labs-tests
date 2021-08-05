@@ -111,7 +111,7 @@ describe.only('UPDATE labs', () => {
     const { body } = updateResponse;
     const parsedResponse = JSON.parse(body);
     expect(parsedResponse.message).toBe('at least one request fail');
-    expect(parsedResponse.failRequests[0].labName).toMatchObject({
+    expect(parsedResponse.failRequests[0]).toMatchObject({
       labId: -1,
       labName: "invalid input",
       address: LABS[3].address,
