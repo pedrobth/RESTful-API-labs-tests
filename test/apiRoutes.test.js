@@ -20,7 +20,7 @@ const INSERTED_TESTS = [
 ];
 const LOREM = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, s';
 
-describe('UPDATE labs', () => {
+describe.only('UPDATE labs', () => {
   beforeEach(async () => {
     await connection.execute('DELETE FROM tests_laboratories');
     await connection.execute('DELETE FROM laboratories');
@@ -98,20 +98,24 @@ describe('UPDATE labs', () => {
     const parsedResponse = JSON.parse(body);
     expect(parsedResponse.message).toBe('mandatory fields missing or in wrong format, check inputs and try it again');
   });
-  it('put on /labs route handle bad inputs -> invalid old lab name', async () => {
+  it('put on /labs route handle bad inputs -> invalid lab id', async () => {
     const updateResponse = await frisby.put(URL_LABS, [{
       labId: 1,
       labName: "DASA some center",
       address: LABS[3].address,
     },{
-      labId: 200,
+      labId: -1,
       labName: "invalid input",
       address: LABS[3].address,
     }]).expect('status', 400);
     const { body } = updateResponse;
     const parsedResponse = JSON.parse(body);
     expect(parsedResponse.message).toBe('at least one request fail');
-    expect(parsedResponse.failRequests[0].labName).toBe('invalid input');
+    expect(parsedResponse.failRequests[0].labName).toMatchObject({
+      labId: -1,
+      labName: "invalid input",
+      address: LABS[3].address,
+    });
   });
   it('put on /labs route handle bad inputs -> a huge new lab name', async () => {
     const updateResponse = await frisby.put(URL_LABS, [{
@@ -133,7 +137,7 @@ describe('UPDATE labs', () => {
       labName: "contagem hematócritos",
       address: "imagem",
     },{
-      labId: 200,
+      labId: -1,
       labName: LOREM,
       address: "imagem",
     }]).expect('status', 400);
