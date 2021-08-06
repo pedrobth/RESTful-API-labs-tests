@@ -772,7 +772,7 @@ describe('INSERT tests', () => {
     expect(postTestsResponse.status).toBe(400);
     const { body } = postTestsResponse;
     const postTestsParsed = JSON.parse(body);
-    expect(postTestsParsed.message).toBe('some of field data exceeds characters limit');
+    expect(postTestsParsed.message).toBe('mandatory fields missing or in wrong format, check inputs and try it again');
   });
 });
 
