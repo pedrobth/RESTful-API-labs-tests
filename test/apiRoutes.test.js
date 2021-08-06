@@ -571,9 +571,9 @@ describe('UPDATE tests', () => {
   });
   it('put on /tests route handle a single valid update on tests', async () => {
     const updateResponse = await frisby.put(URL_TESTS, [{
-      testName: "contagem de hematocritos",
-      testNewName: "contagem hematócritos",
-      testNewType: "imagem",
+      testId:1,
+      testName: "contagem hematócritos",
+      testType: "imagem",
     }]).expect('status', 200);
     const { body } = updateResponse;
     const parsedResponse = JSON.parse(body);
@@ -581,13 +581,13 @@ describe('UPDATE tests', () => {
   });
   it('put on /tests route handle a valid list to update on tests', async () => {
     const updateResponse = await frisby.put(URL_TESTS, [{
-      testName: "contagem de hematocritos",
-      testNewName: "contagem hematócritos",
-      testNewType: "imagem",
+      testId:1,
+      testName: "contagem hematócritos",
+      testType: "imagem",
     },{
-      testName: "ressonancia magnética",
-      testNewName: "ressonância magnética",
-      testNewType: "imagem",
+      testId: 2,
+      testName: "ressonância magnética",
+      testType: "imagem",
     }]).expect('status', 200);
     const { body } = updateResponse;
     const parsedResponse = JSON.parse(body);
@@ -595,67 +595,75 @@ describe('UPDATE tests', () => {
   });
   it('put on /tests route handle bad inputs -> values not passed in a list', async () => {
     const updateResponse = await frisby.put(URL_TESTS, {
-      testName: "contagem de hematocritos",
-      testNewName: "contagem hematócritos",
-      testNewType: "imagem",
+      testId:1,
+      testName: "contagem hematócritos",
+      testType: "imagem",
     },{
-      testName: "ressonancia magnética",
-      testNewName: "ressonância magnética",
-      testNewType: "imagem",
+      testId: 2,
+      testName: "ressonância magnética",
+      testType: "imagem",
     }).expect('status', 400);
     const { body } = updateResponse;
     const parsedResponse = JSON.parse(body);
     expect(parsedResponse.message).toBe('mandatory fields missing or in wrong format, check inputs and try it again');
   });
-  it('put on /tests route handle bad inputs -> invalid testNewType', async () => {
+  it('put on /tests route handle bad inputs -> invalid testType', async () => {
     const updateResponse = await frisby.put(URL_TESTS, [{
-      testName: "contagem de hematocritos",
-      testNewName: "contagem hematócritos",
-      testNewType: 12,
+      testId:1,
+      testName: "contagem hematócritos",
+      testType: 12,
     }]).expect('status', 400);
     const { body } = updateResponse;
     const parsedResponse = JSON.parse(body);
     expect(parsedResponse.message).toBe('mandatory fields in wrong format, check inputs and try it again');
   });
-  it('put on /tests route handle bad inputs -> invalid old test name', async () => {
+  it('put on /tests route handle bad inputs -> invalid test id', async () => {
     const updateResponse = await frisby.put(URL_TESTS, [{
-      testName: "invalid test name",
-      testNewName: "contagem hematócritos",
-      testNewType: "imagem",
+      testId: -1,
+      testName: "contagem hematócritos",
+      testType: "imagem",
     }]).expect('status', 400);
     const { body } = updateResponse;
     const parsedResponse = JSON.parse(body);
     expect(parsedResponse.message).toBe('at least one request fail');
-    expect(parsedResponse.failRequests[0].testName).toBe('invalid test name');
+    expect(parsedResponse.failRequests[0]).toMatchObject({
+      testId: -1,
+      testName: "contagem hematócritos",
+      testType: "imagem"
+    });
   });
   it('put on /tests route handle bad inputs -> a huge new test name', async () => {
     const updateResponse = await frisby.put(URL_TESTS, [{
-      testName: "contagem de hematocritos",
-      testNewName: "contagem hematócritos",
-      testNewType: "imagem",
+      testId:1,
+      testName: "contagem hematócritos",
+      testType: "imagem",
     },{
-      testName: "ressonancia magnética",
-      testNewName: LOREM,
-      testNewType: "imagem",
+      tsttId: 2,
+      testName: LOREM,
+      testType: "imagem",
     }]).expect('status', 400);
     const { body } = updateResponse;
     const parsedResponse = JSON.parse(body);
-    expect(parsedResponse.message).toBe('some of field data exceeds characters limit');
+    expect(parsedResponse.message).toBe('mandatory fields missing or in wrong format, check inputs and try it again');
   });
-  it('put on /tests route handle bad inputs -> a huge old test name', async () => {
+  it('put on /tests route handle bad inputs -> a invalid test Id with more than one resource change', async () => {
     const updateResponse = await frisby.put(URL_TESTS, [{
-      testName: "contagem de hematocritos",
-      testNewName: "contagem hematócritos",
-      testNewType: "imagem",
+      testId:1,
+      testName: "contagem hematócritos",
+      testType: "imagem",
     },{
-      testName: LOREM,
-      testNewName: "ressonância magnética",
-      testNewType: "imagem",
+      testId: -1,
+      testName: "ressonância magnética",
+      testType: "imagem",
     }]).expect('status', 400);
     const { body } = updateResponse;
     const parsedResponse = JSON.parse(body);
     expect(parsedResponse.message).toBe('at least one request fail');
-    expect(parsedResponse.failRequests[0].testName).toBe(LOREM)
+    expect(parsedResponse.failRequests[0]).toMatchObject({
+      testId: -1,
+      testName: "ressonância magnética",
+      testType: "imagem"
+    });
   });
 });
 
