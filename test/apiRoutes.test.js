@@ -535,7 +535,7 @@ describe('INSERT laboratory tests associations', () => {
       .expect('status', 400);
     const { body } = postResponse;
     const parsedResponse = JSON.parse(body);
-    expect(parsedResponse.message).toBe('associations between inactive or out of database laboratory or between valid laboratory and inactive or out of databse test is forbiden. check your inputs');
+    expect(parsedResponse.message).toBe('mandatory fields missing or in wrong format, check inputs and try it again');
   });
 });
 
