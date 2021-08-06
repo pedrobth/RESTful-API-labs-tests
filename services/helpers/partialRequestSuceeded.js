@@ -8,7 +8,7 @@ const partialRequestSuceeded = (allUpdates, body) => {
   console.log('partialRequest:', deactivated, body)
   // check if can be changed by body[index], only
   const failRequests = deactivated.map((item) => body[item]['labName'] || body[index]['testName']);
-  console.log('Request FAILED:', failRequests)
+  console.log('Request FAILED:', failRequests);
   return { ...statusMessages.someOfRequestsFail, failRequests };
 };
 

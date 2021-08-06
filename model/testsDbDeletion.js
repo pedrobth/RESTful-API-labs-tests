@@ -3,7 +3,7 @@ const connection = require('./connection');
 const testsDbDeletion = async (testsList) => {
   try {
     const response = testsList.map((test) => connection
-      .execute('UPDATE tests SET tests.active=false WHERE test_name=?', [test.testName]));
+      .execute('UPDATE tests SET tests.active=false WHERE id=?', [test.testId]));
     const deletedList = await Promise.all(response)
       .then((resp) => resp.map((e) => e[0].affectedRows));
     return deletedList;

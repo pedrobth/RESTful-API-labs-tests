@@ -5,13 +5,13 @@ const { partialRequestSuceeded, validateInputs } = require('./helpers');
 
 const testsDeletion = async (body) => {
   try {
-    const requiredFields = ['testName'];
+    const requiredFields = ['testId'];
     if (!validateInputs(requiredFields, body)) return statusMessages.missingFields;
     const deletionRes = await testsDbDeletion(body);
     if (deletionRes.code) return statusMessages[deletionRes.code];
     const allTestsDeleted = deletionRes
       .find((deletion) => deletion === 0);
-    const deletionTestsLabsRes = await testsLabsDbDeletion(body);
+    // const deletionTestsLabsRes = await testsLabsDbDeletion(body);
     if (allTestsDeleted === 0) return partialRequestSuceeded(deletionRes, body, deletionTestsLabsRes);
     return statusMessages.deleted;
   } catch (err) {
