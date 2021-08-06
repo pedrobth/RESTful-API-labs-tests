@@ -8,8 +8,6 @@ const updateTestsById = async (body) => {
     const requiredFields = ['testId', 'testName', 'testType'];
     if (!validateInputs(requiredFields, body)) return statusMessages.missingFields;
     const testsExists = await getTestsById(body);
-    console.log('updTestsById LINE11:', testsExists)
-    console.log('updTestsById LINE11:', testsExists.some((id) => id === undefined))
     if (testsExists.some((id) => id === undefined)) return handleIdNotInDb(testsExists, body);
     const updateRes = await updTestsById(body);
     if (updateRes.errno === 3819) return statusMessages.ER_BAD_INPUT;
