@@ -432,7 +432,7 @@ describe('REMOVE laboratory tests associations', () => {
       .expect('status', 400);
     const { body } = postResponse;
     const parsedResponse = JSON.parse(body);
-    expect(parsedResponse.message).toBe('could not find your request criteria');
+    expect(parsedResponse.message).toBe('mandatory fields missing or in wrong format, check inputs and try it again');
   });
 });
 
