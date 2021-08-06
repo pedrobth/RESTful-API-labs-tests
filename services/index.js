@@ -7,7 +7,7 @@ const labsInsertion = require('./labsInsertion');
 const testsDeletion = require('./testsDeletion');
 const testsInsertion = require('./testsInsertion');
 const updateLabsById = require('./updateLabsById');
-const updateTestsByName = require('./updateTestsByName');
+const updateTestsById = require('./updateTestsById');
 
 module.exports = {
   allActiveLabs,
@@ -19,5 +19,5 @@ module.exports = {
   testsDeletion,
   testsInsertion,
   updateLabsById,
-  updateTestsByName,
+  updateTestsById,
 };
