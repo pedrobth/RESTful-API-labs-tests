@@ -20,7 +20,7 @@ const INSERTED_TESTS = [
 ];
 const LOREM = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, s';
 
-describe.only('UPDATE labs', () => {
+describe('UPDATE labs', () => {
   beforeEach(async () => {
     await connection.execute('DELETE FROM tests_laboratories');
     await connection.execute('DELETE FROM laboratories');
@@ -236,7 +236,7 @@ describe('INSERT labs', () => {
     expect(postTestsResponse.status).toBe(400);
     const { body } = postTestsResponse;
     const postTestsParsed = JSON.parse(body);
-    expect(postTestsParsed.message).toBe('some of field data exceeds characters limit');
+    expect(postTestsParsed.message).toBe('mandatory fields missing or in wrong format, check inputs and try it again');
   });
 });
 
