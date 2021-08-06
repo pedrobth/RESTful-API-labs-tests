@@ -336,8 +336,7 @@ describe('DELETE labs', () => {
     expect(deleteTestsResponse.status).toBe(400);
     const { body } = deleteTestsResponse;
     const deleteTestsParsed = JSON.parse(body);
-    expect(deleteTestsParsed.message).toBe('at least one request fail');
-    expect(deleteTestsParsed.failRequests[0].labName).toBe(LOREM);
+    expect(deleteTestsParsed.message).toBe('mandatory fields missing or in wrong format, check inputs and try it again');
   });
 });
 
