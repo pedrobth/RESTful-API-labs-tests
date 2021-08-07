@@ -2,7 +2,6 @@ const connection = require('./connection');
 
 const testsLabsDbDeletion = async (tests) => {
   try {
-    console.log(tests)
     const response = tests.map((test) => connection
       .execute('DELETE FROM tests_laboratories WHERE test_id=?',
         [test.testId]));

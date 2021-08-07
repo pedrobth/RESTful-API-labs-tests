@@ -6,7 +6,6 @@ const partialRequestSuceeded = (allUpdates, body) => {
     if (item === 0) deactivated.push(index);
   });
   const failRequests = deactivated.map((item) => body[item]);
-  console.log('Request FAILED:', failRequests);
   return { ...statusMessages.someOfRequestsFail, failRequests };
 };
 
