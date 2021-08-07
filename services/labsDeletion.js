@@ -5,10 +5,10 @@ const { partialRequestSuceeded, validateInputs } = require('./helpers');
 
 const labsDeletion = async (body) => {
   try {
-    const requiredFields = ['labName'];
+    // I did something unusual on this application. Update, delete and insert many was an extra feature. Those requisitions take the id via body instead of prarams. Since It has a single route to update one and many laboratories, this approach is easier to maintain..
+    const requiredFields = ['labId'];
     if (!validateInputs(requiredFields, body)) return statusMessages.missingFields;
     const deletionRes = await labsDbDeletion(body);
-    console.log(deletionRes)
     if (deletionRes.code) return statusMessages[deletionRes.code];
     const allLabsDeleted = deletionRes
       .find((deletion) => deletion === 0);
