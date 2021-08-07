@@ -11,7 +11,7 @@ const testsDeletion = async (body) => {
     if (deletionRes.code) return statusMessages[deletionRes.code];
     const allTestsDeleted = deletionRes
       .find((deletion) => deletion === 0);
-    // const deletionTestsLabsRes = await testsLabsDbDeletion(body);
+    const deletionTestsLabsRes = await testsLabsDbDeletion(body);
     if (allTestsDeleted === 0) return partialRequestSuceeded(deletionRes, body, deletionTestsLabsRes);
     return statusMessages.deleted;
   } catch (err) {
