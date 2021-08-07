@@ -1,4 +1,4 @@
-const assocDelByLabName = require('./assocDelByLabName');
+const assocDelByLabId = require('./assocDelByLabId');
 const associateTestsToLab = require('./associateTestsToLab');
 const labsDbDeletion = require('./labsDbDeletion');
 const getAllActiveLabs = require('./getAllActiveLabs');
@@ -16,7 +16,7 @@ const updLabsById = require('./updLabsById');
 const updTestsById = require('./updTestsById');
 
 module.exports = {
-  assocDelByLabName,
+  assocDelByLabId,
   associateTestsToLab,
   labsDbDeletion,
   getAllActiveLabs,

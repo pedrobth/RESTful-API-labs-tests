@@ -1,4 +1,4 @@
-const { labsDbDeletion, assocDelByLabName } = require('../model');
+const { labsDbDeletion, assocDelByLabId } = require('../model');
 const statusMessages = require('./dictionary/statusMessages');
 const { partialRequestSuceeded, validateInputs } = require('./helpers');
 
@@ -12,7 +12,7 @@ const labsDeletion = async (body) => {
     if (deletionRes.code) return statusMessages[deletionRes.code];
     const allLabsDeleted = deletionRes
       .find((deletion) => deletion === 0);
-    const assocRemovalRes = await assocDelByLabName(body);
+    const assocRemovalRes = await assocDelByLabId(body);
     if (allLabsDeleted === 0) return partialRequestSuceeded(deletionRes, body, assocRemovalRes);
     return statusMessages.deleted;
   } catch (err) {
