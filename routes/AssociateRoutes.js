@@ -3,7 +3,7 @@ const { insertAssociation, removeAssociation } = require('../controllers');
 
 const AssociateRoutes = Router();
 
-AssociateRoutes.post('/:labName', insertAssociation);
+AssociateRoutes.post('/:labId', insertAssociation);
 AssociateRoutes.delete('/:labName', removeAssociation);
 
 module.exports = AssociateRoutes;
