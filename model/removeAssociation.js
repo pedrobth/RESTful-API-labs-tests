@@ -2,7 +2,6 @@ const connection = require('./connection');
 
 const associateTestsToLab = async (testsList, labId) => {
   try {
-    console.log('REMOVE ASSOCIATION: ', testsList, labId)
     const response = testsList.map((test) => connection
       .execute('DELETE FROM tests_laboratories '
         +'WHERE test_id=('
