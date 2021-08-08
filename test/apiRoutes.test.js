@@ -326,9 +326,10 @@ describe('DELETE labs', () => {
 });
 
 describe('REMOVE laboratory tests associations', () => {
-  const URL_LAB_1 = `http://localhost:3001/associate/${LABS[0].labName}`;
-  const URL_LAB_2 = `http://localhost:3001/associate/${LABS[1].labName}`;
-  const URL_LAB_3 = `http://localhost:3001/associate/${LABS[3].labName}`;
+  const URL_LAB_1 = 'http://localhost:3001/associate/1';
+  const URL_LAB_2 = 'http://localhost:3001/associate/2';
+  const URL_LAB_3 = 'http://localhost:3001/associate/3';
+  const URL_LAB_INVALID_ID = 'http://localhost:3001/associate/-1';
   beforeEach(async () => {
     await connection.execute('DELETE FROM tests_laboratories');
     await connection.execute('DELETE FROM laboratories');
@@ -391,8 +392,8 @@ describe('REMOVE laboratory tests associations', () => {
     const parsedResponse = JSON.parse(body);
     expect(parsedResponse.message).toBe('mandatory fields missing or in wrong format, check inputs and try it again');
   });
-  it('delete on /associate route handle bad inputs -> invalid laboratory name', async () => {
-    const postResponse = await frisby.delete(`${URL_LAB_3} InvalidLabName`, [{ testName: TESTS[0].testName }])
+  it('delete on /associate route handle bad inputs -> invalid laboratory id', async () => {
+    const postResponse = await frisby.delete(URL_LAB_INVALID_ID, [{ testName: TESTS[0].testName }])
       .expect('status', 400);
     const { body } = postResponse;
     const parsedResponse = JSON.parse(body);
@@ -400,13 +401,6 @@ describe('REMOVE laboratory tests associations', () => {
   });
   it('delete on /associate route handle bad inputs -> invalid test name', async () => {
     const postResponse = await frisby.delete(URL_LAB_3, [{ testName: `${TESTS[0].testName} InvalidTestName` }])
-      .expect('status', 400);
-    const { body } = postResponse;
-    const parsedResponse = JSON.parse(body);
-    expect(parsedResponse.message).toBe('could not find your request criteria');
-  });
-  it('delete on /associate route handle bad inputs -> huge laboratory name', async () => {
-    const postResponse = await frisby.delete(`${URL_LAB_3} Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tristique risus id rhoncus ultrices. Suspendisse posuere auctor nulla, mattis pretium arcu feugiat at. Suspendisse sed pretium erat. Proin porta turpis eros. Vestibulum tincidunt ultrices biam.`, [{ testName: TESTS[0].testName }])
       .expect('status', 400);
     const { body } = postResponse;
     const parsedResponse = JSON.parse(body);
