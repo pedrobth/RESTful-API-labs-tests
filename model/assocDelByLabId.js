@@ -2,10 +2,9 @@ const connection = require('./connection');
 
 const assocDelByLabId = async (labsList) => {
   try {
-    console.log('ASSOC DEL BY LAB ID:', labsList)
     const response = labsList.map((lab) => connection
       .execute('DELETE FROM tests_laboratories '
-        +'WHERE laboratory_id=?)', [lab.labId]));
+        +'WHERE laboratory_id=?', [lab.labId]));
     const insertedList = await Promise.all(response)
       .then((resp) => resp.map((e) => e[0].affectedRows));
     return insertedList;
