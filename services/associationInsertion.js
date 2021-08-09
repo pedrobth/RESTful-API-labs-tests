@@ -7,7 +7,7 @@ const associationInsertion = async (body, labId) => {
     const requiredFields = ['testName'];
     if (!validateInputs(requiredFields, body)) return statusMessages.missingFields;
     const testsSearch = await getTestsByName(body);
-    const someTestNotInDb = testsSearch.some((t) => t === undefined)
+    const someTestNotInDb = testsSearch.some((t) => t === undefined);
     const lab = await getLabsById([{ labId: labId }]);
     if (someTestNotInDb || lab[0] === undefined) return statusMessages.idNotInDatabase
     
