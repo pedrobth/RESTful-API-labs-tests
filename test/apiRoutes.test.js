@@ -415,10 +415,11 @@ describe('REMOVE laboratory tests associations', () => {
   });
 });
 
-describe('INSERT laboratory tests associations', () => {
-  const URL_ASSOC_1 = `http://localhost:3001/associate/${LABS[0].labName}`;
-  const URL_ASSOC_2 = `http://localhost:3001/associate/${LABS[1].labName}`;
-  const URL_ASSOC_4 = `http://localhost:3001/associate/${LABS[3].labName}`;
+describe.only('INSERT laboratory tests associations', () => {
+  const URL_ASSOC_1 = 'http://localhost:3001/associate/1';
+  const URL_ASSOC_2 = 'http://localhost:3001/associate/2';
+  const URL_ASSOC_4 = 'http://localhost:3001/associate/3';
+  const URL_ASSOC_INVALID_LAB_ID = 'http://localhost:3001/associate/-1';
   beforeEach(async () => {
     await connection.execute('DELETE FROM tests_laboratories');
     await connection.execute('DELETE FROM laboratories');
@@ -488,26 +489,19 @@ describe('INSERT laboratory tests associations', () => {
     const parsedResponse = JSON.parse(body);
     expect(parsedResponse.message).toBe('at least one association requested already exists');
   });
-  it('post on /associate route handle bad inputs -> invalid laboratory name', async () => {
-    const postResponse = await frisby.post(`${URL_ASSOC_4} InvalidLabName`, [{ testName: TESTS[0].testName }])
+  it('post on /associate route handle bad inputs -> invalid laboratory id', async () => {
+    const postResponse = await frisby.post(URL_ASSOC_INVALID_LAB_ID, [{ testName: TESTS[0].testName }])
       .expect('status', 400);
     const { body } = postResponse;
     const parsedResponse = JSON.parse(body);
-    expect(parsedResponse.message).toBe('associations between inactive or out of database laboratory or between valid laboratory and inactive or out of databse test is forbiden. check your inputs');
+    expect(parsedResponse.message).toBe('At least one Id in your request cannot be found');
   });
   it('post on /associate route handle bad inputs -> invalid test name', async () => {
     const postResponse = await frisby.post(URL_ASSOC_4, [{ testName: `${TESTS[0].testName} InvalidTestName` }])
       .expect('status', 400);
     const { body } = postResponse;
     const parsedResponse = JSON.parse(body);
-    expect(parsedResponse.message).toBe('associations between inactive or out of database laboratory or between valid laboratory and inactive or out of databse test is forbiden. check your inputs');
-  });
-  it('post on /associate route handle bad inputs -> huge laboratory name', async () => {
-    const postResponse = await frisby.post(`${URL_ASSOC_4} Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tristique risus id rhoncus ultrices. Suspendisse posuere auctor nulla, mattis pretium arcu feugiat at. Suspendisse sed pretium erat. Proin porta turpis eros. Vestibulum tincidunt ultrices biam.`, [{ testName: TESTS[0].testName }])
-      .expect('status', 400);
-    const { body } = postResponse;
-    const parsedResponse = JSON.parse(body);
-    expect(parsedResponse.message).toBe('associations between inactive or out of database laboratory or between valid laboratory and inactive or out of databse test is forbiden. check your inputs');
+    expect(parsedResponse.message).toBe('At least one Id in your request cannot be found');
   });
   it('post on /associate route handle bad inputs -> huge test name', async () => {
     const postResponse = await frisby.post(URL_ASSOC_4, [{ testName: `${TESTS[0].testName}  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tristique risus id rhoncus ultrices. Suspendisse posuere auctor nulla, mattis pretium arcu feugiat at. Suspendisse sed pretium erat. Proin porta turpis eros. Vestibulum tincidunt ultrices biam.` }])
