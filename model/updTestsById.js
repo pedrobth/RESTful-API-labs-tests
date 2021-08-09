@@ -2,7 +2,6 @@ const connection = require('./connection');
 
 const updTestsById = async (testsList) => {
   try {
-    console.log(testsList)
     const response = testsList.map((test) => connection
       .execute('UPDATE tests SET tests.test_name=?, tests.test_type=? '
         +'WHERE id=?',
