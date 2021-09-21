@@ -4,7 +4,6 @@ const statusMessages = require('./dictionary/statusMessages');
 
 const associationDeletion = async (body, labId) => {
   try {
-    // I did something unusual on this application. Update, delete and insert many was an extra feature. Those requisitions take the id via body instead of prarams. Since It has a single route to update one and many laboratories, this approach is easier to maintain. In that specific case (deletion) the application still working with tests name, but for exercise purpose it would be good to work with subqueries.
     const requiredFields = ['testName'];
     if (!validateInputs(requiredFields, body)) return statusMessages.missingFields;
     const associationRes = await removeAssociation(body, labId);
