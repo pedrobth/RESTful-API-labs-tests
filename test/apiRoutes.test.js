@@ -1,6 +1,5 @@
 const frisby = require('frisby');
 const { connect } = require('../controllers/getActiveLabs');
-// const mysql = require('mysql2/promise');
 const connection = require('./testHelper/connection');
 const { LABS, RELATIONS, TESTS } = require('./testHelper/data');
 
@@ -415,7 +414,7 @@ describe('REMOVE laboratory tests associations', () => {
   });
 });
 
-describe.only('INSERT laboratory tests associations', () => {
+describe('INSERT laboratory tests associations', () => {
   const URL_ASSOC_1 = 'http://localhost:3001/associate/1';
   const URL_ASSOC_2 = 'http://localhost:3001/associate/2';
   const URL_ASSOC_4 = 'http://localhost:3001/associate/3';
