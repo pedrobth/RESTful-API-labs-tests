@@ -239,12 +239,18 @@ describe('INSERT labs', () => {
   });
 });
 
-describe('DELETE labs', () => {
+describe.only('DELETE labs', () => {
+  const URL_DEL1 = URL_LABS + '/1'
+  const URL_DEL_INVALID_ID = URL_LABS + '/invalid'
+  const URL_DEL_MISSING_ID = URL_LABS + '/ '
+  const URL_DEL_ID_NOT_IN_DB = URL_LABS + '/6'
   beforeEach(async () => {
     await connection.execute('DELETE FROM tests_laboratories');
     await connection.execute('DELETE FROM tests');
+    await connection.execute('DELETE FROM laboratories');
     await connection.execute('ALTER TABLE tests_laboratories AUTO_INCREMENT = 1');
     await connection.execute('ALTER TABLE tests AUTO_INCREMENT = 1');
+    await connection.execute('ALTER TABLE laboratories AUTO_INCREMENT = 1');
     await connection.execute('INSERT INTO laboratories (address, lab_name) VALUES (?, ?), (?, ?), (?, ?), (?, ?)', [
       LABS[0].address, LABS[0].labName,
       LABS[1].address, LABS[1].labName,
@@ -267,60 +273,37 @@ describe('DELETE labs', () => {
     ]);
   });
   it('delete on /labs route remove a single lab successfully', async () => {
-    const deleteTestsResponse = await frisby.delete(URL_LABS, [
-      { labId: 1 },
-    ]).expect('status', 200);
+    const deleteTestsResponse = await frisby.delete(URL_DEL1).expect('status', 200);
     const { body } = deleteTestsResponse;
     const deleteTestsParsed = JSON.parse(body);
     expect(deleteTestsParsed.message).toBe('deleted with relations removed successfully');
   });
   it('delete on /labs route remove a lab successfully', async () => {
-    const deleteTestsResponse = await frisby.delete(URL_LABS, [
-      { labId: 1 },
-    ]).expect('status', 200);
+    const deleteTestsResponse = await frisby.delete(URL_DEL1).expect('status', 200);
     const { body } = deleteTestsResponse;
     const deleteTestsParsed = JSON.parse(body);
     expect(deleteTestsParsed.message).toBe('deleted with relations removed successfully');
   });
-  it('delete on /labs route handle bad inputs -> empty body', async () => {
-    const deleteTestsResponse = await frisby.delete(URL_LABS)
+  it('delete on /labs route handle bad inputs -> missing id', async () => {
+    const deleteTestsResponse = await frisby.delete(URL_DEL_MISSING_ID)
     expect(deleteTestsResponse.status).toBe(400);
     const { body } = deleteTestsResponse;
     const deleteTestsParsed = JSON.parse(body);
     expect(deleteTestsParsed.message).toBe('mandatory fields missing or in wrong format, check inputs and try it again');
   });
-  it('delete on /labs route handle bad inputs -> lab id invalid -> uses id list', async () => {
-    const deleteTestsResponse = await frisby.delete(URL_LABS,
-      { labId: 1 },
-      { labId: 2 },
-      { labId: 3 },
-      { labId: -1 },
-    );
+  it('delete on /labs route handle bad inputs -> lab id invalid', async () => {
+    const deleteTestsResponse = await frisby.delete(URL_DEL_INVALID_ID);
     expect(deleteTestsResponse.status).toBe(400);
     const { body } = deleteTestsResponse;
     const deleteTestsParsed = JSON.parse(body);
     expect(deleteTestsParsed.message).toBe('mandatory fields missing or in wrong format, check inputs and try it again');
   });
-  it('delete on /labs route handle bad inputs -> invalid lab id -> single id passed', async () => {
-    const deleteTestsResponse = await frisby.delete(URL_LABS,
-      { labId: -1 }
-    );
+  it('delete on /labs route handle bad inputs -> invalid lab id -> id not in db', async () => {
+    const deleteTestsResponse = await frisby.delete(URL_DEL_ID_NOT_IN_DB);
     expect(deleteTestsResponse.status).toBe(400);
     const { body } = deleteTestsResponse;
     const deleteTestsParsed = JSON.parse(body);
-    expect(deleteTestsParsed.message).toBe('mandatory fields missing or in wrong format, check inputs and try it again');
-  });
-  it('delete on /labs route handle bad inputs -> empty lab name', async () => {
-    const deleteTestsResponse = await frisby.delete(URL_LABS,
-      { labId: 1 },
-      { labId: '' },
-      { labId: 1 },
-      { labId: 1 },
-    );
-    expect(deleteTestsResponse.status).toBe(400);
-    const { body } = deleteTestsResponse;
-    const deleteTestsParsed = JSON.parse(body);
-    expect(deleteTestsParsed.message).toBe('mandatory fields missing or in wrong format, check inputs and try it again');
+    expect(deleteTestsParsed.message).toBe('could not find your request criteria');
   });
 });
 
