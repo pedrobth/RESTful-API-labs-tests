@@ -1,12 +1,11 @@
 const connection = require('./connection');
 
-const labsDbDeletion = async (labsList) => {
+const labsDbDeletion = async (labId) => {
   try {
-    const response = labsList.map((lab) => connection
-      .execute('UPDATE laboratories SET laboratories.active=false WHERE id=?', [lab.labId]));
-    const deletedList = await Promise.all(response)
-      .then((resp) => resp.map((e) => e[0].affectedRows));
-    return deletedList;
+    const response = connection
+      .execute('UPDATE laboratories SET laboratories.active=false WHERE id=?', labId);
+    const deleted = await response
+    return deleted[0].affectedRows;
   } catch (err) {
     console.log('error at labsDbDeletion: ', err);
     return err;
