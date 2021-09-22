@@ -1,19 +1,15 @@
 const { testsDbDeletion, testsLabsDbDeletion } = require('../model');
 const statusMessages = require('./dictionary/statusMessages');
-const { partialRequestSuceeded, validateInputs } = require('./helpers');
 
 
-const testsDeletion = async (body) => {
+const testsDeletion = async (testId) => {
   try {
-    // I did something unusual on this application. Update, delete and insert many was an extra feature. Those requisitions take the id via body instead of prarams. Since It has a single route to update one and many laboratories, this approach is easier to maintain..
-    const requiredFields = ['testId'];
-    if (!validateInputs(requiredFields, body)) return statusMessages.missingFields;
-    const deletionRes = await testsDbDeletion(body);
+    if (!parseInt(testId)) return statusMessages.missingFields;
+    const deletionRes = await testsDbDeletion([testId]);
     if (deletionRes.code) return statusMessages[deletionRes.code];
-    const allTestsDeleted = deletionRes
-      .find((deletion) => deletion === 0);
-    const deletionTestsLabsRes = await testsLabsDbDeletion(body);
-    if (allTestsDeleted === 0) return partialRequestSuceeded(deletionRes, body, deletionTestsLabsRes);
+    if (deletionRes === 0) return statusMessages.zeroAffectedRows;
+    const deletionTestsLabsRes = await testsLabsDbDeletion([testId]);
+    if (deletionTestsLabsRes.affectedRows === 0) return statusMessages.testDeletedNoAssociationFound;
     return statusMessages.deleted;
   } catch (err) {
     console.log(`error at services testsDeletion: ${err}`);

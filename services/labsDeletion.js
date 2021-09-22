@@ -4,10 +4,8 @@ const statusMessages = require('./dictionary/statusMessages');
 
 const labsDeletion = async (labId) => {
   try {
-    console.log('labId: ', labId)
     if (!parseInt(labId)) return statusMessages.missingFields;
     const deletionRes = await labsDbDeletion([labId]);
-    console.log('deletuionRes: ', deletionRes)
     if (deletionRes.code) return statusMessages[deletionRes.code];
     if (deletionRes === 0) return statusMessages.zeroAffectedRows;
     const assocRemovalRes = await assocDelByLabId([labId]);

@@ -3,11 +3,11 @@ const { testsDeletion } = require('../services');
 
 const removeTests = Router();
 
-removeTests.delete('/', async (req, res, next) => {
+removeTests.delete('/:testId', async (req, res, next) => {
   try {
-    // I did something unusual on this application. Update, delete and insert many was an extra feature. Those requisitions take the id via body instead of prarams. Since It has a single route to update one and many laboratories, this approach is easier to maintain..
-    const { body } = req;
-    const deletionResponse = await testsDeletion(body);
+    const { params } = req;
+    const { testId } = params;
+    const deletionResponse = await testsDeletion(testId);
     if (deletionResponse.err) return next(deletionResponse);
     const { message, status } = deletionResponse;
     return res.status(status)

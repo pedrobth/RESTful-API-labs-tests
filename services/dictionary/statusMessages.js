@@ -33,13 +33,16 @@ const statusMessasges = {
     status: 400, message: 'At least one Id in your request cannot be found'
   },
   labDeletedNoAssiciationFound: {
-    status: 200, message: 'lab removed. WARNING: "could not find any relation with tests"'
+    status: 200, message: 'laboratory removed. WARNING: "could not find any relation with tests"'
   },
   missingFields: {
     status: 400, message: 'mandatory fields missing or in wrong format, check inputs and try it again',
   },
   someOfRequestsFail: {
     status: 400, message: 'at least one request fail'
+  },
+  testDeletedNoAssociationFound: {
+    status: 200, message: 'test removed. WARNING: "could not find any relation with any laboratory"'
   },
   updated: {
     status: 200, message: 'success',

@@ -6,6 +6,6 @@ const TestsRoutes = Router();
 TestsRoutes.get('/', getActiveTests);
 TestsRoutes.put('/', updateTests);
 TestsRoutes.post('/', insertTests);
-TestsRoutes.delete('/', removeTests);
+TestsRoutes.delete('/:testId', removeTests);
 
 module.exports = TestsRoutes;
