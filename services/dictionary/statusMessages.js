@@ -32,6 +32,9 @@ const statusMessasges = {
   idNotInDatabase: {
     status: 400, message: 'At least one Id in your request cannot be found'
   },
+  labDeletedNoAssiciationFound: {
+    status: 200, message: 'lab removed. WARNING: "could not find any relation with tests"'
+  },
   missingFields: {
     status: 400, message: 'mandatory fields missing or in wrong format, check inputs and try it again',
   },
